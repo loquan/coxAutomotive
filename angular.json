@@ -120,5 +120,8 @@
       }
     }
   },
-  "defaultProject": "CoxAutomotive"
+  "defaultProject": "CoxAutomotive",
+  "cli": {
+    "analytics": false
+  }
 }

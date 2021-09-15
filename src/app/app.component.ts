@@ -46,24 +46,30 @@ export class AppComponent implements OnInit {
 
   public dealers:any[]=[];
   public dealerFinal:any[]=[];
+  public dataSetId:string;
   constructor(private http:HttpClient){
 
   }
   ngOnInit(){
 
+     
+
+  }
+
+  clickStart(){
     let data=this.getDatasetId().subscribe(data => {
-      let dataSetId = data.datasetId;
-      this.getDatasetVehicle( dataSetId).subscribe(vehicles =>{
+      this.dataSetId = data.datasetId;
+      this.getDatasetVehicle( this.dataSetId).subscribe(vehicles =>{
         this.vehiclesIds=vehicles.vehicleIds;
         let numberVehicle=this.vehiclesIds.length;
         let count=0;
         this.vehiclesIds.forEach(vehicle=>{
 
-            this.getVehicleInfo(dataSetId,vehicle).subscribe( vehicleInfo =>{
+            this.getVehicleInfo(this.dataSetId,vehicle).subscribe( vehicleInfo =>{
                 let dealerId:number=vehicleInfo.dealerId;
                 let vehicleData:any={};
                 if(this.dealers[dealerId]==null){
-                    this.getDealerInfo(dataSetId,dealerId).subscribe(dealerInfo =>{
+                    this.getDealerInfo(this.dataSetId,dealerId).subscribe(dealerInfo =>{
                     
                     if(this.dealers[dealerId]==null) 
                     {
@@ -102,10 +108,9 @@ export class AppComponent implements OnInit {
       })
 
 
-    });    
+    });  
 
   }
-
   rebuildJSON(dealers:any[]){
     dealers.forEach(dealer => {
       this.dealerFinal.push(dealer);

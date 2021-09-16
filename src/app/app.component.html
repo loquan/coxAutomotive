@@ -338,10 +338,64 @@
    dataSetId:{{dataSetId}}
 
   
+   <label>Vehicle Ids</label>
+   <div class="row" *ngFor=" let  vehicleId of vehiclesIds ">
+     
+      <div class="col-1"> {{vehicleId}}</div>
 
+   </div>
 
- 
+   <label>Vehicle Info{{vehicleInfoData.length}}</label>
+   <table >
+   <tr><td>vehicleId</td><td>year</td><td>make</td><td>model</td><td>dealerId</td></tr>
+   <tr *ngFor=" let  vehicleinfo of vehicleInfoData ">     
+    <td>  {{vehicleinfo.vehicleId}}</td>
+    <td > {{vehicleinfo.year}}</td>
+    <td > {{vehicleinfo.make}}</td>
+    <td > {{vehicleinfo.model}}</td>
+    <td > {{vehicleinfo.dealerId}}</td>
+   </tr>
+   </table>
 
+   <label>dealerFinal : {{dealerFinal.length}}</label>
+   <table >
+   <tr><td>dealear name</td><td>dealer Id</td><td></td>
+   <tr *ngFor=" let  dealer of dealerFinal ">     
+    <td> 
+    <td>  {{dealer.name}}</td>
+    <td > {{dealer.dealerId}}</td>
+    <td> <table> 
+              <tr><td>vehicleId</td><td>year</td><td>make</td><td>model</td></tr>
+              <tr *ngFor=" let  vehicleinfo of dealer.vehicles ">     
+              <td>  {{vehicleinfo.vehicleId}}</td>
+              <td > {{vehicleinfo.year}}</td>
+              <td > {{vehicleinfo.make}}</td>
+              <td > {{vehicleinfo.model}}</td>
+              
+          </tr></table>
+    </td>
+   </tr>  
+   </table>
+
+  <label>Cheat Data : {{cheat.length}}</label>
+  <table >
+  <tr><td>dealear name</td><td>dealer Id</td><td></td>
+  <tr *ngFor=" let  dealer of cheat.dealers ">     
+   <td> 
+   <td>  {{dealer.name}}</td>
+   <td > {{dealer.dealerId}}</td>
+   <td> <table> 
+             <tr><td>vehicleId</td><td>year</td><td>make</td><td>model</td></tr>
+             <tr *ngFor=" let  vehicleinfo of dealer.vehicles ">     
+             <td>  {{vehicleinfo.vehicleId}}</td>
+             <td > {{vehicleinfo.year}}</td>
+             <td > {{vehicleinfo.make}}</td>
+             <td > {{vehicleinfo.model}}</td>
+             
+         </tr></table>
+   </td>
+  </tr>  
+ </table>
  
 
 

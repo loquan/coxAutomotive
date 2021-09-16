@@ -8,7 +8,7 @@ import { Component,OnInit } from '@angular/core';
 export interface dealerStruct{
   dealerId: number,
   name: string;
-  vehicle:vehiclesData[],
+  vehicles:vehiclesData[],
 }
 
 
@@ -47,6 +47,9 @@ export class AppComponent implements OnInit {
   public dealers:any[]=[];
   public dealerFinal:any[]=[];
   public dataSetId:string;
+  public vehicleInfoData:vehicleStruct[]=[];
+  public dealerIndex:number[]=[];
+  public cheat:any;
   constructor(private http:HttpClient){
 
   }
@@ -59,6 +62,11 @@ export class AppComponent implements OnInit {
   clickStart(){
     let data=this.getDatasetId().subscribe(data => {
       this.dataSetId = data.datasetId;
+      this.getDataCheat(this.dataSetId).subscribe( data =>{
+          this.cheat=data;
+
+      });
+
       this.getDatasetVehicle( this.dataSetId).subscribe(vehicles =>{
         this.vehiclesIds=vehicles.vehicleIds;
         let numberVehicle=this.vehiclesIds.length;
@@ -68,20 +76,22 @@ export class AppComponent implements OnInit {
             this.getVehicleInfo(this.dataSetId,vehicle).subscribe( vehicleInfo =>{
                 let dealerId:number=vehicleInfo.dealerId;
                 let vehicleData:any={};
+                this.vehicleInfoData.push(vehicleInfo);
                 if(this.dealers[dealerId]==null){
                     this.getDealerInfo(this.dataSetId,dealerId).subscribe(dealerInfo =>{
                     
                     if(this.dealers[dealerId]==null) 
                     {
                       this.dealers[dealerId]=dealerInfo;
-                      this.dealers[dealerId].vehicle=[]; 
+                      this.dealers[dealerId].vehicles=[]; 
+                      this.dealerIndex.push(dealerId);
                     }
                     count++;   
                     vehicleData.vehicleId=vehicleInfo.vehicleId;
                     vehicleData.year=vehicleInfo.year;
                     vehicleData.make=vehicleInfo.make;  
                     vehicleData.model=vehicleInfo.model;
-                    this.dealers[dealerId].vehicle.push(vehicleData);
+                    this.dealers[dealerId].vehicles.push(vehicleData);
 
                     if(count==numberVehicle){
                       this.rebuildJSON(this.dealers);                    
@@ -112,12 +122,22 @@ export class AppComponent implements OnInit {
 
   }
   rebuildJSON(dealers:any[]){
-    dealers.forEach(dealer => {
-      this.dealerFinal.push(dealer);
-      
+
+    
+    this.dealerIndex.forEach( index =>{
+       this.dealerFinal.push(dealers[index]);;
     });
-  
+
+
+    
   }
+
+  getDataCheat(dataSetId:string){
+    return this.http.get<any>('http://api.coxauto-interview.com/api/'+dataSetId+'/cheat');
+    
+  }
+  
+
   getDatasetId(){
     return this.http.get<any>('http://api.coxauto-interview.com/api/datasetId');
     

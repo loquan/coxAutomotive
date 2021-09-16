@@ -133,26 +133,26 @@ export class AppComponent implements OnInit {
   }
 
   getDataCheat(dataSetId:string){
-    return this.http.get<any>('http://api.coxauto-interview.com/api/'+dataSetId+'/cheat');
+    return this.http.get<any>('https://api.coxauto-interview.com/api/'+dataSetId+'/cheat');
     
   }
   
 
   getDatasetId(){
-    return this.http.get<any>('http://api.coxauto-interview.com/api/datasetId');
+    return this.http.get<any>('https://api.coxauto-interview.com/api/datasetId');
     
   }
 
   getDatasetVehicle(dataSetId:string){
-    return this.http.get<vehiclesArray>('http://api.coxauto-interview.com/api/'+dataSetId+'/vehicles');
+    return this.http.get<vehiclesArray>('https://api.coxauto-interview.com/api/'+dataSetId+'/vehicles');
     
   }
   getVehicleInfo(dataSetId:string,vehicleId:number){
-    return this.http.get< vehicleStruct >('http://api.coxauto-interview.com/api/'+dataSetId+'/vehicles/'+vehicleId);
+    return this.http.get< vehicleStruct >('https://api.coxauto-interview.com/api/'+dataSetId+'/vehicles/'+vehicleId);
   }
 
   getDealerInfo(dataSetId:string,dealerId:number){
-    return this.http.get('http://api.coxauto-interview.com/api/'+dataSetId+'/dealers/'+dealerId);
+    return this.http.get('https://api.coxauto-interview.com/api/'+dataSetId+'/dealers/'+dealerId);
   }
 
   
